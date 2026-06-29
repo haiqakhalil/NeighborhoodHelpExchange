@@ -114,7 +114,7 @@ git clone https://github.com/YOUR_USERNAME/NeighborhoodHelpExchange.git
 ## 👨‍💻 Author
 
 **Your Name**
-- GitHub: [@your_username](https://github.com/your_username)
+- GitHub: [haiqakhalil](https://github.com/haiqakhalil)
 
 ---
 
