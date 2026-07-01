@@ -71,7 +71,7 @@ NeighborhoodHelpExchange/
 
 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/NeighborhoodHelpExchange.git
+git clone https://github.com/haiqakhalil/NeighborhoodHelpExchange.git
 ```
 
 2. Open the project in **IntelliJ IDEA**
