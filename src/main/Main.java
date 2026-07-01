@@ -1,7 +1,7 @@
 package main;
 
-import model.User;
-import model.Post;
+import models.User;
+import models.Post;
 
 public class Main {
     public static void main(String[] args) {

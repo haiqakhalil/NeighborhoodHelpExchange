@@ -53,9 +53,9 @@ NeighborhoodHelpExchange/
 │   │   ├── PostFormScreen.java     # Submit new post
 │   │   └── DashboardScreen.java    # My posts & matches
 │   ├── models/
-│   │   ├── User.java               # User data model
-│   │   ├── Post.java               # Post data model
-│   │   └── Match.java              # Match data model
+│   │   ├── User.java               # User data models
+│   │   ├── Post.java               # Post data models
+│   │   └── Match.java              # Match data models
 │   └── storage/
 │       └── FileHandler.java        # Save & load data
 ├── data/
