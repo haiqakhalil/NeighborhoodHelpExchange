@@ -35,12 +35,33 @@ public class FileHandler {
                     users.add(user);
                 }
             }
-            sc.close();
             fr.close();
         } catch (IOException e) {
             System.out.println("Error loading users: " + e.getMessage());
         }
         return users;
+    }
+
+    public static void createFilesIfNotExist() {
+        try {
+            File dataFolder = new File("data");
+            if (!dataFolder.exists()) {
+                dataFolder.mkdir();
+            }
+
+            File usersFile = new File(USERS_FILE);
+            if (!usersFile.exists()) {
+                usersFile.createNewFile();
+            }
+
+            File postsFile = new File(POSTS_FILE);
+            if (!postsFile.exists()) {
+                postsFile.createNewFile();
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error creating files: " + e.getMessage());
+        }
     }
 
 
