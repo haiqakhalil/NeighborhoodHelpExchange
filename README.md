@@ -1,6 +1,6 @@
 # 🏘️ Neighborhood Help Exchange
 
-A Java-based community platform where neighbors can post help requests or offers, get matched, and support each other. Built with a console-based backend and Java Swing GUI frontend.
+A Java-based community platform where neighbors can post help requests or offers, get matched, and support each other. Fully GUI-based using Java Swing — no console interaction needed for the user.
 
 ---
 
@@ -9,17 +9,17 @@ A Java-based community platform where neighbors can post help requests or offers
 
 | Week | Focus |
 |------|-------|
-| Week 1 | Core logic, models, file storage, console features |
-| Week 2 | Java Swing GUI, integration, polish |
+| Week 1 | Models, file storage, GUI Login & Register, Post logic |
+| Week 2 | Home Screen, Dashboard, Matching, Polish |
 
 ---
 
 ## ✨ Features
 
-- 👤 User Registration & Login
+- 👤 GUI-based Registration & Login
 - 📋 Post a Help Request ("I need a tutor")
 - 🙋 Post a Help Offer ("I can help with groceries")
-- 🔍 Browse listings via GUI
+- 🔍 Browse listings via GUI Home Screen
 - 🤝 Accept and match with others
 - 📁 File-based data storage (no database needed)
 
@@ -31,7 +31,7 @@ A Java-based community platform where neighbors can post help requests or offers
 |-------|------------|
 | Language | Java |
 | GUI | Java Swing |
-| Storage | File I/O (txt/CSV) |
+| Storage | File I/O (txt) |
 | IDE | IntelliJ IDEA |
 | Version Control | Git & GitHub |
 
@@ -43,19 +43,19 @@ A Java-based community platform where neighbors can post help requests or offers
 NeighborhoodHelpExchange/
 ├── src/
 │   ├── main/
-│   │   └── Main.java               # Entry point
+│   │   └── Main.java               # Entry point — launches LoginScreen
 │   ├── console/
-│   │   ├── AuthManager.java        # Login & Registration
-│   │   ├── PostManager.java        # Create/view posts
-│   │   └── MatchEngine.java        # Matching logic
+│   │   └── MatchEngine.java        # Matching logic only
 │   ├── gui/
+│   │   ├── LoginScreen.java        # GUI Login
+│   │   ├── RegisterScreen.java     # GUI Register
 │   │   ├── HomeScreen.java         # Browse listings
 │   │   ├── PostFormScreen.java     # Submit new post
 │   │   └── DashboardScreen.java    # My posts & matches
 │   ├── models/
-│   │   ├── User.java               # User data models
-│   │   ├── Post.java               # Post data models
-│   │   └── Match.java              # Match data models
+│   │   ├── User.java               # User data model
+│   │   ├── Post.java               # Post data model
+│   │   └── Match.java              # Match data model
 │   └── storage/
 │       └── FileHandler.java        # Save & load data
 ├── data/
@@ -63,6 +63,22 @@ NeighborhoodHelpExchange/
 │   └── posts.txt                   # Stored post data
 ├── .gitignore
 └── README.md
+```
+
+---
+
+## 🖥️ App Flow
+
+```
+App Starts
+    ↓
+GUI Login Screen
+    ↓
+New User? → Register Screen
+    ↓
+After Login → Home Screen (browse posts)
+    ↓
+Create Post / View Dashboard / Accept Help
 ```
 
 ---
@@ -87,16 +103,16 @@ git clone https://github.com/haiqakhalil/NeighborhoodHelpExchange.git
 | Day 1 | - | Project setup, GitHub repo, folder structure |
 | Day 2 | - | User.java and Post.java models |
 | Day 3 | - | FileHandler.java — save & load data |
-| Day 4 | - | Console login & registration |
-| Day 5 | - | Post request/offer logic |
-| Day 6 | - | Matching engine |
-| Day 7 | - | Console testing & bug fixes |
-| Day 8 | - | GUI Home Screen |
-| Day 9 | - | GUI Post Form |
-| Day 10 | - | GUI Dashboard |
-| Day 11 | - | Connect GUI to real data |
-| Day 12 | - | Accept button & match status |
-| Day 13 | - | UI polish |
+| Day 4 | - | GUI Login Screen |
+| Day 5 | - | GUI Register Screen |
+| Day 6 | - | GUI Home Screen — browse posts |
+| Day 7 | - | GUI Post Form Screen |
+| Day 8 | - | GUI Dashboard Screen |
+| Day 9 | - | Matching Engine logic |
+| Day 10 | - | Connect all screens with real data |
+| Day 11 | - | Accept button & match status |
+| Day 12 | - | Navigation between screens |
+| Day 13 | - | UI polish & bug fixes |
 | Day 14 | - | Final testing & README update |
 
 ---
@@ -113,8 +129,8 @@ git clone https://github.com/haiqakhalil/NeighborhoodHelpExchange.git
 
 ## 👨‍💻 Author
 
-**Your Name**
-- GitHub: [haiqakhalil](https://github.com/haiqakhalil)
+**Haiqa Khalil**
+- GitHub: [@haiqakhalil](https://github.com/haiqakhalil)
 
 ---
 
