@@ -5,13 +5,17 @@ public class User {
     private String username;
     private String password;
     private String area;
+    private String name;
 
-    public User(String area, String password, String userId, String username) {
-        this.area = area;
-        this.password = password;
+    public User(String userId, String name, String username, String password, String area) {
         this.userId = userId;
+        this.name = name;
         this.username = username;
+        this.password = password;
+        this.area = area;
     }
+
+    public String getName() { return name; }
 
     public String getArea() {
         return area;
@@ -35,11 +39,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "area='" + area + '\'' +
-                ", userId='" + userId + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+        return userId + "," + name + "," + username + "," + password + "," + area;
     }
 }
