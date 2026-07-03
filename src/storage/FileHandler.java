@@ -31,7 +31,7 @@ public class FileHandler {
                 String line = sc.nextLine();
                 if (!line.trim().isEmpty()) {
                     String[] parts = line.split(",");
-                    User user = new User(parts[0], parts[1], parts[2], parts[3]);
+                    User user = new User(parts[0], parts[1], parts[2], parts[3], parts[4]);
                     users.add(user);
                 }
             }
