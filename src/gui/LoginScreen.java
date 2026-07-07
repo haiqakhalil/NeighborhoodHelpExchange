@@ -66,7 +66,7 @@ public class LoginScreen extends JFrame {
                 for (User user : users) {
                     if (user.getUsername().equals(enteredUsername)
                             && user.getPassword().equals(enteredPassword)) {
-                        JOptionPane.showMessageDialog(null, "Login Successful! Welcome " + user.getUsername());
+                        new HomeScreen(user);
                         dispose();
                         return;
                     }
