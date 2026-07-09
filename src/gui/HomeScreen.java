@@ -54,20 +54,19 @@ public class HomeScreen extends JFrame {
 
         loadPosts();
 
-        postHelpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // new PostFormScreen(loggedInUser);
-                // dispose();
-                JOptionPane.showMessageDialog(null, "Coming Soon!");
-            }
-        });
+         postHelpButton.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        new PostFormScreen(loggedInUser);
+        dispose();
+    }
+});
 
         dashboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // new DashboardScreen(loggedInUser);
-                // dispose();
+//                 new DashboardScreen(loggedInUser);
+//                 dispose();
                 JOptionPane.showMessageDialog(null, "Coming Soon!");
             }
         });
