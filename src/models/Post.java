@@ -7,12 +7,12 @@ public class Post {
     private String description;
     private String status;
 
-    public Post(String description, String postId, String status, String type, String userId) {
-        this.description = description;
+    public Post(String postId, String userId, String type, String description, String status) {
         this.postId = postId;
-        this.status = status;
-        this.type = type;
         this.userId = userId;
+        this.type = type;
+        this.description = description;
+        this.status = status;
     }
 
     public String getDescription() {
