@@ -65,9 +65,9 @@ public class HomeScreen extends JFrame {
         dashboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                 new DashboardScreen(loggedInUser);
-//                 dispose();
-                JOptionPane.showMessageDialog(null, "Coming Soon!");
+                 new DashboardScreen(loggedInUser);
+                 dispose();
+               //JOptionPane.showMessageDialog(null, "Coming Soon!");
             }
         });
         logoutButton.addActionListener(new ActionListener() {
