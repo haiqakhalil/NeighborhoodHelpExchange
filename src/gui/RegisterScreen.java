@@ -106,7 +106,7 @@ public class RegisterScreen extends JFrame {
                 }
 
                 String userId = "U" + (users.size() + 1);
-                User newUser = new User(name,userId, username, password, area);
+                User newUser = new User(userId, name, username, password, area);
                 FileHandler.saveUser(newUser);
 
                 JOptionPane.showMessageDialog(
