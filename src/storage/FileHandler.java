@@ -1,5 +1,6 @@
 package storage;
 
+import models.Match;
 import models.User;
 import models.Post;
 import java.io.*;
@@ -42,7 +43,11 @@ public class FileHandler {
         return users;
     }
 
-    public static void createFilesIfNotExist() {
+    public static void createFilesIfNotExist() throws IOException {
+        File matchesFile = new File(MATCHES_FILE);
+        if (!matchesFile.exists()) {
+            matchesFile.createNewFile();
+        }
         try {
             File dataFolder = new File("data");
             if (!dataFolder.exists()) {
@@ -94,4 +99,36 @@ public class FileHandler {
         }
         return posts;
     }
+    private static final String MATCHES_FILE = "data/matches.txt";
+
+    public static void saveMatch(Match match) {
+        try {
+            FileWriter fw = new FileWriter(MATCHES_FILE, true);
+            fw.write(match.toString() + "\n");
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error saving match: " + e.getMessage());
+        }
+    }
+
+    public static ArrayList<Match> loadMatches() {
+        ArrayList<Match> matches = new ArrayList<>();
+        try {
+            FileReader fr = new FileReader(MATCHES_FILE);
+            Scanner sc = new Scanner(fr);
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                if (!line.trim().isEmpty()) {
+                    String[] parts = line.split(",");
+                    Match match = new Match(parts[0], parts[1], parts[2], parts[3]);
+                    matches.add(match);
+                }
+            }
+            fr.close();
+        } catch (IOException e) {
+            System.out.println("Error loading matches: " + e.getMessage());
+        }
+        return matches;
+    }
+
 }
