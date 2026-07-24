@@ -40,13 +40,9 @@ public class Post {
     }
 
     @Override
+
     public String toString() {
-        return "Post{" +
-                "description='" + description + '\'' +
-                ", postId='" + postId + '\'' +
-                ", userId='" + userId + '\'' +
-                ", type='" + type + '\'' +
-                ", status='" + status + '\'' +
-                '}';
+        return postId + "," + userId + "," + type + "," + description + "," + status;
     }
+
 }
