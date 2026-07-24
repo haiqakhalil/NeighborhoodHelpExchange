@@ -1,5 +1,6 @@
 package gui;
 
+import console.MatchEngine;
 import models.User;
 import models.Post;
 import storage.FileHandler;
@@ -91,22 +92,60 @@ public class HomeScreen extends JFrame {
     private void loadPosts() {
         postsPanel.removeAll();
 
-        List<Post> posts = FileHandler.loadPosts();
+        List<Post> allPosts = FileHandler.loadPosts();
 
-        for (Post post : posts) {
+        for (Post post : allPosts) {
             JPanel card = new JPanel();
-            card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+            card.setLayout(null);
             card.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-            card.setMaximumSize(new Dimension(500, 90));
+            card.setPreferredSize(new Dimension(520, 100));
+            card.setMaximumSize(new Dimension(520, 100));
             card.setAlignmentX(Component.LEFT_ALIGNMENT);
 
             JLabel typeLabel = new JLabel("Type: " + post.getType());
-            JLabel descriptionLabel = new JLabel("Description: " + post.getDescription());
+            typeLabel.setBounds(10, 10, 400, 20);
+
+            JLabel descLabel = new JLabel("Description: " + post.getDescription());
+            descLabel.setBounds(10, 35, 400, 20);
+
             JLabel statusLabel = new JLabel("Status: " + post.getStatus());
+            statusLabel.setBounds(10, 60, 200, 20);
+
+            JButton acceptButton = new JButton("Accept");
+            acceptButton.setBounds(400, 35, 100, 25);
+
+            if (post.getStatus().equals("MATCHED") ||
+                    post.getUserId().equals(loggedInUser.getUserId())) {
+                acceptButton.setEnabled(false);
+            }
+
+            acceptButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    boolean success = MatchEngine.acceptPost(post.getPostId(), loggedInUser.getUserId());
+                    if (success) {
+                        JOptionPane.showMessageDialog(
+                                HomeScreen.this,
+                                "You have accepted this post!",
+                                "Matched!",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                        loadPosts();
+                    } else {
+                        JOptionPane.showMessageDialog(
+                                HomeScreen.this,
+                                "This post is already matched!",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE
+                        );
+                    }
+                }
+            });
 
             card.add(typeLabel);
-            card.add(descriptionLabel);
+            card.add(descLabel);
             card.add(statusLabel);
+            card.add(acceptButton);
 
             postsPanel.add(card);
             postsPanel.add(Box.createVerticalStrut(8));
@@ -115,4 +154,6 @@ public class HomeScreen extends JFrame {
         postsPanel.revalidate();
         postsPanel.repaint();
     }
-}
+        }
+
+
