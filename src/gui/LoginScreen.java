@@ -58,8 +58,19 @@ public class LoginScreen extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String enteredUsername = usernameField.getText();
-                String enteredPassword = new String(passwordField.getPassword());
+                String enteredUsername = usernameField.getText().trim();
+                String enteredPassword = new String(passwordField.getPassword()).trim();
+
+                // Empty field check
+                if (enteredUsername.isEmpty() || enteredPassword.isEmpty()) {
+                    JOptionPane.showMessageDialog(
+                            LoginScreen.this,
+                            "Please enter username and password",
+                            "Login Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
 
                 List<User> users = FileHandler.loadUsers();
 
@@ -91,6 +102,7 @@ public class LoginScreen extends JFrame {
 
         setVisible(true);
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(LoginScreen::new);
