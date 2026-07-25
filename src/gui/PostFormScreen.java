@@ -107,6 +107,21 @@ public class PostFormScreen extends JFrame {
                 dispose();
             }
         });
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(
+                        PostFormScreen.this,
+                        "Are you sure you want to go back? Your post will not be saved.",
+                        "Go Back",
+                        JOptionPane.YES_NO_OPTION
+                );
+                if (confirm == JOptionPane.YES_OPTION) {
+                    new HomeScreen(loggedInUser);
+                    dispose();
+                }
+            }
+        });
 
         add(title);
         add(typeLabel);
