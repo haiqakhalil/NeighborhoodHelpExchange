@@ -66,12 +66,21 @@ public class DashboardScreen extends JFrame {
             }
         });
 
-        // Logout button
+
+        //logout button
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new LoginScreen();
-                dispose();
+                int confirm = JOptionPane.showConfirmDialog(
+                        DashboardScreen.this,
+                        "Are you sure you want to logout?",
+                        "Logout",
+                        JOptionPane.YES_NO_OPTION
+                );
+                if (confirm == JOptionPane.YES_OPTION) {
+                    dispose();
+                    new LoginScreen();
+                }
             }
         });
 
