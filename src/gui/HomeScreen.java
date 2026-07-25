@@ -55,27 +55,35 @@ public class HomeScreen extends JFrame {
 
         loadPosts();
 
-         postHelpButton.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        new PostFormScreen(loggedInUser);
-        dispose();
-    }
-});
+        postHelpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PostFormScreen(loggedInUser);
+                dispose();
+            }
+        });
 
         dashboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                 new DashboardScreen(loggedInUser);
-                 dispose();
-               //JOptionPane.showMessageDialog(null, "Coming Soon!");
+                new DashboardScreen(loggedInUser);
+                dispose();
             }
         });
+
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new LoginScreen();
-                dispose();
+                int confirm = JOptionPane.showConfirmDialog(
+                        HomeScreen.this,
+                        "Are you sure you want to logout?",
+                        "Logout",
+                        JOptionPane.YES_NO_OPTION
+                );
+                if (confirm == JOptionPane.YES_OPTION) {
+                    dispose();
+                    new LoginScreen();
+                }
             }
         });
 
@@ -154,6 +162,4 @@ public class HomeScreen extends JFrame {
         postsPanel.revalidate();
         postsPanel.repaint();
     }
-        }
-
-
+}
