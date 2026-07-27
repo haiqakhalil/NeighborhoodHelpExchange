@@ -6,130 +6,112 @@ import storage.FileHandler;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class PostFormScreen extends JFrame {
 
     private User loggedInUser;
-
-    private JLabel title;
-    private JLabel typeLabel;
-    private JLabel descriptionLabel;
     private JComboBox<String> typeDropdown;
     private JTextArea descriptionArea;
-    private JButton submitButton;
-    private JButton backButton;
 
     public PostFormScreen(User user) {
         this.loggedInUser = user;
 
         setTitle("Neighborhood Help Exchange - Post Help");
-        setSize(500, 400);
-        setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setMinimumSize(new Dimension(600, 500));
+        setLayout(new BorderLayout());
+        getContentPane().setBackground(new Color(245, 245, 245));
 
+        // ── TOP PANEL ──
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.setBackground(new Color(245, 245, 245));
+        topPanel.setBorder(BorderFactory.createEmptyBorder(15, 20, 5, 20));
 
-        title = new JLabel("Create a Post");
-        title.setBounds(180, 20, 200, 30);
-        title.setFont(new Font("Arial", Font.BOLD, 18));
+        JLabel title = new JLabel("Create a Post");
+        title.setFont(new Font("Arial", Font.BOLD, 24));
+        title.setForeground(new Color(50, 50, 50));
 
+        topPanel.add(title, BorderLayout.WEST);
 
-        typeLabel = new JLabel("Post Type:");
-        typeLabel.setBounds(50, 80, 100, 25);
+        // ── CENTER PANEL ──
+        JPanel formPanel = new JPanel();
+        formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
+        formPanel.setBackground(new Color(245, 245, 245));
+        formPanel.setBorder(BorderFactory.createEmptyBorder(30, 40, 10, 40));
+
+        JLabel typeLabel = new JLabel("Post Type:");
+        typeLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        typeLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         String[] types = {"REQUEST", "OFFER"};
         typeDropdown = new JComboBox<>(types);
-        typeDropdown.setBounds(160, 80, 200, 25);
+        typeDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
+        typeDropdown.setMaximumSize(new Dimension(300, 35));
+        typeDropdown.setAlignmentX(Component.LEFT_ALIGNMENT);
 
+        JLabel descLabel = new JLabel("Description:");
+        descLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        descLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        descriptionLabel = new JLabel("Description:");
-        descriptionLabel.setBounds(50, 130, 100, 25);
-
-        descriptionArea = new JTextArea();
+        descriptionArea = new JTextArea(6, 30);
         descriptionArea.setLineWrap(true);
         descriptionArea.setWrapStyleWord(true);
+        descriptionArea.setFont(new Font("Arial", Font.PLAIN, 14));
         JScrollPane descScroll = new JScrollPane(descriptionArea);
-        descScroll.setBounds(160, 130, 270, 100);
+        descScroll.setMaximumSize(new Dimension(Integer.MAX_VALUE, 150));
+        descScroll.setAlignmentX(Component.LEFT_ALIGNMENT);
 
+        JButton submitButton = new JButton("Submit Post");
+        submitButton.setBackground(new Color(34, 139, 34));
+        submitButton.setForeground(Color.WHITE);
+        submitButton.setFont(new Font("Arial", Font.BOLD, 14));
+        submitButton.setFocusPainted(false);
+        submitButton.setBorderPainted(false);
+        submitButton.setPreferredSize(new Dimension(150, 40));
+        submitButton.setMaximumSize(new Dimension(150, 40));
+        submitButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        submitButton = new JButton("Submit Post");
-        submitButton.setBounds(100, 270, 120, 30);
+        formPanel.add(typeLabel);
+        formPanel.add(Box.createVerticalStrut(8));
+        formPanel.add(typeDropdown);
+        formPanel.add(Box.createVerticalStrut(20));
+        formPanel.add(descLabel);
+        formPanel.add(Box.createVerticalStrut(8));
+        formPanel.add(descScroll);
+        formPanel.add(Box.createVerticalStrut(20));
+        formPanel.add(submitButton);
 
-        backButton = new JButton("Back");
-        backButton.setBounds(260, 270, 100, 30);
+        submitButton.addActionListener(e -> {
+            String type = (String) typeDropdown.getSelectedItem();
+            String description = descriptionArea.getText().trim();
 
-
-        submitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String type = (String) typeDropdown.getSelectedItem();
-                String description = descriptionArea.getText().trim();
-
-
-                if (description.isEmpty()) {
-                    JOptionPane.showMessageDialog(
-                            PostFormScreen.this,
-                            "Please enter a description",
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                    return;
-                }
-
-
-                List<Post> posts = FileHandler.loadPosts();
-                String postId = "P" + (posts.size() + 1);
-
-
-                Post newPost = new Post(postId, loggedInUser.getUserId(), type, description, "OPEN");
-                FileHandler.savePost(newPost);
-
-                JOptionPane.showMessageDialog(
-                        PostFormScreen.this,
-                        "Post submitted successfully!",
-                        "Success",
-                        JOptionPane.INFORMATION_MESSAGE
-                );
-
-
-                new HomeScreen(loggedInUser);
-                dispose();
+            if (description.isEmpty()) {
+                JOptionPane.showMessageDialog(PostFormScreen.this,
+                        "Please enter a description",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
+
+            List<Post> posts = FileHandler.loadPosts();
+            String postId = "P" + (posts.size() + 1);
+
+            Post newPost = new Post(postId, loggedInUser.getUserId(),
+                    type, description, "OPEN");
+            FileHandler.savePost(newPost);
+
+            JOptionPane.showMessageDialog(PostFormScreen.this,
+                    "Post submitted successfully!",
+                    "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            new HomeScreen(loggedInUser);
+            dispose();
         });
 
-
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new HomeScreen(loggedInUser);
-                dispose();
-            }
-        });
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int confirm = JOptionPane.showConfirmDialog(
-                        PostFormScreen.this,
-                        "Are you sure you want to go back? Your post will not be saved.",
-                        "Go Back",
-                        JOptionPane.YES_NO_OPTION
-                );
-                if (confirm == JOptionPane.YES_OPTION) {
-                    new HomeScreen(loggedInUser);
-                    dispose();
-                }
-            }
-        });
-
-        add(title);
-        add(typeLabel);
-        add(typeDropdown);
-        add(descriptionLabel);
-        add(descScroll);
-        add(submitButton);
-        add(backButton);
+        add(topPanel, BorderLayout.NORTH);
+        add(formPanel, BorderLayout.CENTER);
+        add(NavBar.create(loggedInUser, "post", this), BorderLayout.SOUTH);
 
         setVisible(true);
     }
