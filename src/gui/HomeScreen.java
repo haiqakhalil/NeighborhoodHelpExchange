@@ -7,7 +7,6 @@ import storage.FileHandler;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class HomeScreen extends JFrame {
 
         topPanel.add(titlePanel, BorderLayout.WEST);
 
-        // ── CENTER PANEL (posts) ──
+        // ── CENTER PANEL ──
         postsPanel = new JPanel();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
         postsPanel.setBackground(new Color(245, 245, 245));
@@ -60,78 +59,9 @@ public class HomeScreen extends JFrame {
 
         loadPosts();
 
-        // ── BOTTOM PANEL (buttons) ──
-        JPanel bottomPanel = new JPanel(new BorderLayout());
-        bottomPanel.setBackground(new Color(230, 230, 230));
-        bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-
-        JPanel leftButtons = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        leftButtons.setBackground(new Color(230, 230, 230));
-
-        JButton postHelpButton = new JButton("+ Post Help");
-        postHelpButton.setBackground(new Color(34, 139, 34));
-        postHelpButton.setForeground(Color.WHITE);
-        postHelpButton.setFont(new Font("Arial", Font.BOLD, 13));
-        postHelpButton.setFocusPainted(false);
-        postHelpButton.setBorderPainted(false);
-        postHelpButton.setPreferredSize(new Dimension(140, 38));
-
-        JButton dashboardButton = new JButton("Dashboard");
-        dashboardButton.setBackground(new Color(70, 130, 180));
-        dashboardButton.setForeground(Color.WHITE);
-        dashboardButton.setFont(new Font("Arial", Font.BOLD, 13));
-        dashboardButton.setFocusPainted(false);
-        dashboardButton.setBorderPainted(false);
-        dashboardButton.setPreferredSize(new Dimension(140, 38));
-
-        leftButtons.add(postHelpButton);
-        leftButtons.add(dashboardButton);
-
-        JButton logoutButton = new JButton("Logout");
-        logoutButton.setBackground(new Color(178, 34, 34));
-        logoutButton.setForeground(Color.WHITE);
-        logoutButton.setFont(new Font("Arial", Font.BOLD, 13));
-        logoutButton.setFocusPainted(false);
-        logoutButton.setBorderPainted(false);
-        logoutButton.setPreferredSize(new Dimension(120, 38));
-
-        bottomPanel.add(leftButtons, BorderLayout.WEST);
-        bottomPanel.add(logoutButton, BorderLayout.EAST);
-
-        // ── ACTION LISTENERS ──
-        postHelpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new PostFormScreen(loggedInUser);
-                dispose();
-            }
-        });
-
-        dashboardButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new DashboardScreen(loggedInUser);
-                dispose();
-            }
-        });
-
-        logoutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int confirm = JOptionPane.showConfirmDialog(
-                        HomeScreen.this,
-                        "Are you sure you want to logout?",
-                        "Logout", JOptionPane.YES_NO_OPTION);
-                if (confirm == JOptionPane.YES_OPTION) {
-                    dispose();
-                    new LoginScreen();
-                }
-            }
-        });
-
         add(topPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
-        add(bottomPanel, BorderLayout.SOUTH);
+        add(NavBar.create(loggedInUser, "home", this), BorderLayout.SOUTH);
 
         setVisible(true);
     }
@@ -158,7 +88,6 @@ public class HomeScreen extends JFrame {
             card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 110));
             card.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-            // Left side of card
             JPanel leftPanel = new JPanel();
             leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
             leftPanel.setBackground(Color.WHITE);
@@ -190,7 +119,6 @@ public class HomeScreen extends JFrame {
             leftPanel.add(Box.createVerticalStrut(4));
             leftPanel.add(statusLabel);
 
-            // Right side of card — accept button
             JButton acceptButton = new JButton("Accept");
             acceptButton.setBackground(new Color(34, 139, 34));
             acceptButton.setForeground(Color.WHITE);
@@ -205,21 +133,18 @@ public class HomeScreen extends JFrame {
                 acceptButton.setBackground(Color.LIGHT_GRAY);
             }
 
-            acceptButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    boolean success = MatchEngine.acceptPost(
-                            post.getPostId(), loggedInUser.getUserId());
-                    if (success) {
-                        JOptionPane.showMessageDialog(HomeScreen.this,
-                                "You have accepted this post!",
-                                "Matched!", JOptionPane.INFORMATION_MESSAGE);
-                        loadPosts();
-                    } else {
-                        JOptionPane.showMessageDialog(HomeScreen.this,
-                                "This post is already matched!",
-                                "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+            acceptButton.addActionListener(e -> {
+                boolean success = MatchEngine.acceptPost(
+                        post.getPostId(), loggedInUser.getUserId());
+                if (success) {
+                    JOptionPane.showMessageDialog(HomeScreen.this,
+                            "You have accepted this post!",
+                            "Matched!", JOptionPane.INFORMATION_MESSAGE);
+                    loadPosts();
+                } else {
+                    JOptionPane.showMessageDialog(HomeScreen.this,
+                            "This post is already matched!",
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
             });
 
