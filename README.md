@@ -98,22 +98,22 @@ git clone https://github.com/haiqakhalil/NeighborhoodHelpExchange.git
 
 ## 📅 Daily Progress Log
 
-| Day | Date | What Was Done |
-|-----|------|---------------|
-| Day 1 | - | Project setup, GitHub repo, folder structure |
-| Day 2 | - | User.java and Post.java models |
-| Day 3 | - | FileHandler.java — save & load data |
-| Day 4 | - | GUI Login Screen |
-| Day 5 | - | GUI Register Screen |
-| Day 6 | - | GUI Home Screen — browse posts |
-| Day 7 | - | GUI Post Form Screen |
-| Day 8 | - | GUI Dashboard Screen |
-| Day 9 | - | Matching Engine logic |
-| Day 10 | - | Connect all screens with real data |
-| Day 11 | - | Accept button & match status |
-| Day 12 | - | Navigation between screens |
-| Day 13 | - | UI polish & bug fixes |
-| Day 14 | - | Final testing & README update |
+| Day | What Was Done |
+|-----|---------------|
+| Day 1 | Project setup, GitHub repo, folder structure |
+| Day 2 | User.java and Post.java models |
+| Day 3 | FileHandler.java — save & load data |
+| Day 4 | GUI Login Screen |
+| Day 5 | GUI Register Screen |
+| Day 6 | GUI Home Screen — browse posts |
+| Day 7 | GUI Post Form Screen |
+| Day 8 | GUI Dashboard Screen |
+| Day 9 | Matching Engine logic |
+| Day 10 | Connect all screens with real data |
+| Day 11 | Accept button & match status |
+| Day 12 | Navigation between screens |
+| Day 13 | UI polish & bug fixes |
+| Day 14 | Final testing & README update |
 
 ---
 
